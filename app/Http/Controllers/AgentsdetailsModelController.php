@@ -20,7 +20,7 @@ class AgentsdetailsModelController extends Controller
         ->select(
             'users.id as id',
             'name',
-            'allowcredit','noallocated', 'noused', 'status','access_token'
+            'allowcredit','noallocated', 'noused', 'status','auth_token'
             
         )->where('role', 'agent')->get(); 
 
