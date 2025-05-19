@@ -48,7 +48,7 @@
             </div>
             <div class="col-auto">
                     <label class='form-label' for="agentname">AUTH_TOKEN</label>
-                    <input type="text" class="form-control form-control-lg" name="authtoken" value="{{$agent->access_token}}">                 
+                    <input type="text" class="form-control form-control-lg" name="authtoken" value="{{$agent->auth_token}}">                 
             </div>
             <div class="col-auto">
                     <input type="checkbox" class="form-check-input" name="agentcreditchk"  value="{{$agent->allowcredit}}">
