@@ -20,19 +20,27 @@
       </div>
     </div>
     <!-- /Search -->
+                @php
+                    Auth::check();
+                    $usercheck = Auth::user();
+                @endphp
 
     <ul class="navbar-nav flex-row align-items-center ms-md-auto">
-      <li class="nav-item lh-1 me-4">
+      @if ($usercheck->role=='agent')
+            <li class="nav-item lh-1 me-4">
         <a
           class="github-button"
-          href="https://github.com/themeselection/sneat-bootstrap-laravel-livewire-starter-kit"
+          href="#"
           data-icon="octicon-star"
           data-size="large"
           data-show-count="true"
-          aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-          >Star</a
+          aria-label="Star"
+          >Credits</a
         >
       </li>
+        
+      @endif
+
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <!-- Check if the user is authenticated -->
