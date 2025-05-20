@@ -40,6 +40,36 @@ class AgentsdetailsModelController extends Controller
         return view('usermgmgt.agentdetails' ,compact('user','agent'));
     }
 
+        public function agentupdate(Request $request)
+    {
+        //
+        try {
+            //code...
+                    $agent=agentsdetailsModel::where('uid',$request->agentid)->first();
+
+        $agent->noallocated=$request->noallocated;
+        $agent->status=$request->status;
+        $agent->auth_token=$request->authtoken;
+
+        if ($request->has('agentcreditchk')){
+            echo " Should be True";
+            $agent->allowcredit=true;
+        }
+        else {
+            echo " Should be False";
+            $agent->allowcredit=false;
+        }
+
+        $agent->save();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+
+       return redirect()->route('list_agents');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

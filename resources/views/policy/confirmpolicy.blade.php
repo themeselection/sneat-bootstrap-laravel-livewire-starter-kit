@@ -1,8 +1,13 @@
-<x-layouts.app>
                 @php
+                use App\Models\agentsdetailsModel;
                     Auth::check();
                     $usercheck = Auth::user();
+                    $agent=agentsdetailsModel::where('uid',$usercheck->id)->first();
+                    $creditleft=$agent->noallocated - $agent->noused;
+            
                 @endphp
+    
+<x-layouts.app>
     This is a a Test
         @if ($errors->any())
   <div class="alert alert-danger">
@@ -105,8 +110,8 @@
             <div class="p-2 bd-highlight" style="margin-right: 5px">
                 <button class="btn btn-primary" type="submit" disabled name="moniepoint" data-toggle="tooltip" data-placement="right"title="Coming Soon">Moniepoint</button>
             </div>
-            @if ($user->role=='agent')
-            <div class="p-2 bd-highlight" style="margin-right: 5px">  
+            @if ($user->role=='agent' && ($agent->allowcredit==true) && ($creditleft>=0))
+            <div class="p-2 bd-highlight" style="margin-right: 5px">  {{$creditleft}}
                 <button class="btn btn-primary" type="submit" name="agencycredit" onclick="disableButton()" id="acredtbtn">Agency Credit</button>
             </div>
             @endif

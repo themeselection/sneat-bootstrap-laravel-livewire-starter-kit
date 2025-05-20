@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\agentsdetailsModel;
 use App\Models\policy;
 use App\Models\policyrisk;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Validation\Rules;
 use App\Models\User;
 use App\Models\vehicleMake;
 use Illuminate\Support\Facades\Http;
+use App\Exceptions\InvalidUserActionException;
 
 
 class PolicyController extends Controller
@@ -148,6 +150,7 @@ class PolicyController extends Controller
                 $insured->dob=$request->dob;
                 $insured->telno=$request->phone;
                 $insured->state=$request->state;
+                $insured->address=$request->address;
                 $insured->password=Hash::make($genpassword);
 
                 $insured->save();
@@ -217,7 +220,7 @@ class PolicyController extends Controller
     public function confirmmpolicy(Request $request)
     {
         //
-        dd($request);
+
 
         return view('policy.confirmpolicy');
     }
@@ -225,15 +228,31 @@ class PolicyController extends Controller
     public function paypolicy(Request $request)
     {
         //
+        Auth::check();
+        $user=Auth::user();
         $policy=policy::where('id',$request->policyid)->first();
         $policyrisk=policyrisk::where('policyid',$request->policyid)->first();
         $insured=User::where('id', $policy->insured_id)->first();
+
 
         #Handle Payment Method
         switch ($request) {
             case $request->has('agencycredit'):
                 #TO DO Get How Much Credit the Agent has and pay using assinged credit
-                
+                // Get Current Agency Credit
+                $agent=agentsdetailsModel::where('uid', $user->id)->first();
+                $creditleft=$agent->noallocated-$agent->noused;
+
+            // Secondary check for Agency credit 
+            if ($creditleft<=0) {
+                $message = "You do not have sufficient Credits to make this purchase";
+                $error='error';
+                $errorcode='402-004';
+                $message;
+                return view('user_errors', compact('error', 'errorcode', 'message'));
+            }
+
+
                 #Validation of mandatory Field with default values
                 $gsm=$insured->telno;
                 if (empty($gsm)) {
@@ -275,7 +294,7 @@ class PolicyController extends Controller
                 # code...
                 break;
         }
-            #handle response from elite
+            #handle response from elite check status for success/fail
             $policy->elite_msg=$response->body();
 
             // Decode JSON string into an associative array
@@ -288,9 +307,14 @@ class PolicyController extends Controller
                 $policy->policyno=$data['data']['policy_number'];
                 $policy->status='approved';
                 $policy->save();
+               
 
 
                 #To do Get Agent Credit Balance and change to reflect success;
+                if ($request->has('agencycredit')){
+                    $agent->noused=$agent->noused + 1;
+                    $agent->save();
+                }
 
 
 
@@ -305,6 +329,7 @@ class PolicyController extends Controller
                 $policy->policyno=$data['data']['policy_number'];
                 $policy->status='failed';
                 $policy->save();
+                //TO DO create view to return user back to the policy with error message!!
 
 
 
@@ -320,6 +345,23 @@ class PolicyController extends Controller
 
         return redirect()->route('list_policy');
     }
+
+
+        public function viewpolicy(Request $request)
+    {
+        //
+
+        $producttype='TO DO';
+        $policy=policy::where('id',$request->id)->first();
+        $insured=User::where('id',$policy->insured_id)->first();
+        $policyrisk=policyrisk::where('policyid', $policy->id)->first();
+        $vmakes=vehicleMake::all();
+
+        //dd($policy);
+
+        return view('policy.viewpolicy', compact('policy','insured','policyrisk','vmakes'));
+    }
+
 
 
     /**

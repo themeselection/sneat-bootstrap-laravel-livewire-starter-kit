@@ -54,7 +54,13 @@
                                 <td>{{$policy->insured_name}}</td>
                                 <td>{{$policy->contribution}}</td>
                                 <td>{{$policy->status}}</td>
-                                <td><button>View</button>
+                                <td><form action="{{route('view_policy')}}" method="get">
+                                    <input type="number" value="{{$policy->id}}" hidden name='id'>
+
+                                    <button class="btn btn-primary" type="submit">View Policy</button>
+
+                                </form>
+                                    
                                     @if ($policy->status=='approved' && !empty($policy->policyno))
                                         <a target="_blank" class="btn btn-success" href="https://demo.bitlect.net/api/v1/policy/view-certificate?policy_no={{$policy->policyno}}">
                                         Print Certificate

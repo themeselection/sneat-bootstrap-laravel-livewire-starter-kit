@@ -1,4 +1,5 @@
 <x-layouts.app>
+
     This is a a Test
         @if ($errors->any())
   <div class="alert alert-danger">
@@ -13,6 +14,8 @@
     <div class="card">
         <div class="card-header">AGENT DETAILS</div>
         <div class="card-body">
+            <form action="{{route('agentupdate')}}" method="post">
+                @csrf
             <div class="row gy-2 gx-3 align-items-center mb-3">
             <div class="col-auto">
                     <label class='form-label' for="agentname">Name</label>
@@ -33,7 +36,8 @@
             </div>
             <div class="col-auto">
                     <label class='form-label form-check-label' for="agentname">Allocated Credits</label>
-                    <input type="number" class="form-control form-control-lg"  name="noallocated"  value="{{$agent->noallocated}}">                    
+                    <input type="number" class="form-control form-control-lg"  name="noallocated"  value="{{$agent->noallocated}}"> 
+                    <input type="number" class="form-control form-control-lg"  name="agentid" hidden value="{{$agent->id}}">                    
             </div>
             <div class="col-auto">
                     <label class='form-label' for="agentname">Credits used*</label>
@@ -51,11 +55,18 @@
                     <input type="text" class="form-control form-control-lg" name="authtoken" value="{{$agent->auth_token}}">                 
             </div>
             <div class="col-auto">
-                    <input type="checkbox" class="form-check-input" name="agentcreditchk"  value="{{$agent->allowcredit}}">
-                    <label class='form-label form-check-label' for="agentcreditchk">Can buy on Credit ?</label>
+                @if ($agent->allowcredit==true)
+                    <input type="checkbox" class="form-check-input" name="agentcreditchk" checked value="allowed">
+                    <label class='form-label form-check-label' for="agentcreditchk">Can buy on Credit ?</label>  
+                @else
+                    <input type="checkbox" class="form-check-input" name="agentcreditchk"  value="allowed">
+                    <label class='form-label form-check-label' for="agentcreditchk">Can buy on Credit ?</label>  
+                @endif
+
             </div>
         </div>
         <div><button type="submit" class="btn btn-primary">GO</button></div>
+        </form>
         </div>
     </div>
 </div>
