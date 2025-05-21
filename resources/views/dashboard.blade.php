@@ -4,8 +4,12 @@
                 use App\Models\agentsdetailsModel;
                     Auth::check();
                     $usercheck = Auth::user();
-                    $agent=agentsdetailsModel::where('uid',$usercheck->id)->first();
+                    if ($usercheck->role=='agent') {
+                      # code...
+                      $agent=agentsdetailsModel::where('uid',$usercheck->id)->first();
                     $creditleft=$agent->noallocated - $agent->noused;
+                    }
+                    
             
                 @endphp
 <x-layouts.app :title="__('Dashboard')">
