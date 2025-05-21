@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('address')->nullable();
             $table->string('gender')->nullable();
+            $table->string('role')->default('user');
         });
     }
 
