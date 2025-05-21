@@ -22,15 +22,17 @@
                 </thead>
                 <tbody>
                     @forelse ($agents as $agent )
-                <form action="{{route('agentprofile')}}" method="GET">
+                
                     <tr>
+                        <form action="{{route('agentprofile')}}" method="GET">
                         <td>#</td>
                          <td>{{$agent->name}}</td>
                           <td>{{$agent->status}}</td>
                            <td><input type="text" name=uid hidden value="{{$agent->id}}">
                             <button type="submit" class="btn btn-primary">View</button></td>
+                            </form>
                     </tr>
-                </form>
+                
                         
                     @empty
                         <tr>
