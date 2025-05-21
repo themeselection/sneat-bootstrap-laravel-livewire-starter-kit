@@ -62,10 +62,11 @@
                     <input type="checkbox" class="form-check-input" name="agentcreditchk"  value="allowed">
                     <label class='form-label form-check-label' for="agentcreditchk">Can buy on Credit ?</label>  
                 @endif
-
             </div>
         </div>
-        <div><button type="submit" class="btn btn-primary">GO</button></div>
+        <div>
+            
+            <button type="submit" class="btn btn-primary">GO</button></div>
         </form>
         </div>
     </div>
