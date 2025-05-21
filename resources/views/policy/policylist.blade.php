@@ -35,13 +35,14 @@
                         <th>S/No</th>
                         <th>Policy No.</th>
                         <th>Policy Type</th>
+                        <th>Risk (REG NO) </th>
                         <th>Insured Name</th>
                         <th>Contribution</th>
                         <th>Status</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        @forelse ($policies as $policy )
+                        @forelse ($policies as $policy ) 
                             <tr>
                                 <td>#</td>
                                 <td>@if (empty($policy->policyno))
@@ -50,7 +51,13 @@
                                     {{$policy->policyno}}
                                 @endif
                                     </td>
-                                <td>{{$policy->policytype}}</td>
+                                <td>{{$policy->producttype}}</td>
+                                @if (empty($policy->getrisk()->regno))
+                                   <td>No reg No. {{$policy->id}}</td> 
+                                @else
+                                    <td>{{$policy->getrisk()->regno}}</td>
+                                @endif
+                                
                                 <td>{{$policy->insured_name}}</td>
                                 <td>{{$policy->contribution}}</td>
                                 <td>{{$policy->status}}</td>
@@ -63,7 +70,7 @@
                                     
                                     @if ($policy->status=='approved' && !empty($policy->policyno))
                                         <a target="_blank" class="btn btn-success" href="https://demo.bitlect.net/api/v1/policy/view-certificate?policy_no={{$policy->policyno}}">
-                                        Print Certificate
+                                        Certificate
                                         </a>
                                     @endif
                                     

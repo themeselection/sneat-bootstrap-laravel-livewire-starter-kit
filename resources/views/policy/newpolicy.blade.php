@@ -23,6 +23,8 @@
                     <label for="" class="form-label">PRODUCT TYPE</label>
                     <input class="form-control form-control-lg" type="text" disabled value="{{$producttype}}">
                     <input class="form-control form-control-lg" type="text" name='producttype' hidden value="{{$producttype}}">
+                    <input class="form-control form-control-lg" type="text" name='insurancetype' hidden value="{{$insurancetype }}">
+                    <input class="form-control form-control-lg" type="text" name='vehicleuse' hidden value="{{$vehicleuse}}">
                 </div>
                 <div class="col-auto">
                     <label for="" class="form-label">CONTRIBUTION ( &#8358;)</label>
@@ -53,7 +55,8 @@
                 </div>
                 <div class="col-auto">
                     <label class='form-label' for="dob">Date of Birth</label>
-                    <input class='form-control form-control-lg' type="date" name="dob"  required id="dob" placeholder="Select your Date of Birth">
+                    <input class='form-control form-control-lg' type="date" name="dob"  required id="dob" 
+                    placeholder="Select your Date of Birth" min="1925-01-01" max="2008-01-01">
                 </div>
 
                 <div class="col-auto">
@@ -120,9 +123,13 @@
                         <option value="Corolla">Corolla</option>
                     </select>
                 </div>
+
                 <div class="col-auto">
                     <label class='form-label' for="yearofmake">Year of Make</label>
-                    <input type="number" class="form-control form-control-lg" id="yearofmake" name="yearofmake">
+                    <input type="number" class="form-control form-control-lg" id="yearofmake" 
+                    placeholder="Enter Year of Make"
+                    name="yearofmake" 
+                    min="1970" max="{{date('Y')}}">
 
                 </div>
                 <div class="col-auto">

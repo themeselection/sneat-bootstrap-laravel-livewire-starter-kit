@@ -10,25 +10,26 @@
     <!-- Dashboards -->
     <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('dashboard') }}" wire:navigate>
+        <i class="menu-icon fa fa-tachometer"></i>
         {{ __('Dashboard') }}</a>
     </li>
         <!-- Policy Management -->
     <li class="menu-item {{ request()->is('list_policy') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('list_policy') }}" wire:navigate>
-        <i class="menu-icon tf-icons bx bx-cog"></i>{{ __('Policy Mgmt') }}</a>
+        <i class="menu-icon fa fa-pencil"></i>{{ __('Policy Mgmt') }}</a>
     </li>
 
     <!-- User Management -->
     <li class="menu-item {{ request()->is('list_users') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('list_users') }}" wire:navigate>
-        <i class="menu-icon tf-icons bx bx-cog"></i>{{ __('User Mgmt') }}
+        <i class="menu-icon fa fa-user"></i>{{ __('User Mgmt') }}
       </a>
     </li>
 
         <!-- Agent Management -->
     <li class="menu-item {{ request()->is('list_agents') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('list_agents') }}" wire:navigate>
-        <i class="menu-icon tf-icons bx bx-cog"></i>{{ __('Agent Mgmt') }}
+        <i class="menu-icon fa fa-address-card"></i>{{ __('Agent Mgmt') }}
       </a>
     </li>
 

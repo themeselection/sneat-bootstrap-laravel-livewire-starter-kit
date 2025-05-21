@@ -1,3 +1,7 @@
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
 <x-layouts.app>
     This is a a Test
         @if ($errors->any())
@@ -13,7 +17,7 @@
     <div class="card">
         <div class="card-header">USER MANAGEMENT</div>
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-striped" id="userlist">
                 <thead><th>S/N</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Role</th><th></thead>
                 <tbody>
                     @forelse ($users as $user)
@@ -48,5 +52,7 @@
         </div>
     </div>
 </div>
-
+<script>
+  new DataTable('#userlist');
+</script>
 </x-layouts.app>

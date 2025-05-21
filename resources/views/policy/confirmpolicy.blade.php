@@ -111,8 +111,11 @@
                 <button class="btn btn-primary" type="submit" disabled name="moniepoint" data-toggle="tooltip" data-placement="right"title="Coming Soon">Moniepoint</button>
             </div>
             @if ($user->role=='agent' && ($agent->allowcredit==true) && ($creditleft>=0))
-            <div class="p-2 bd-highlight" style="margin-right: 5px">  {{$creditleft}}
+            <div class="p-2 bd-highlight" style="margin-right: 5px">  
                 <button class="btn btn-primary" type="submit" name="agencycredit" onclick="disableButton()" id="acredtbtn">Agency Credit</button>
+            </div>
+             <div class="p-2 bd-highlight" style="margin-right: 5px"><h5>You Have {{$creditleft}} Upload Credit(s) left: </h5>  
+               
             </div>
             @endif
             

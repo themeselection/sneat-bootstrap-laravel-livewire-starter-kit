@@ -1,3 +1,13 @@
+                @php
+                use App\Models\agentsdetailsModel;
+                    Auth::check();
+                    $usercheck = Auth::user();
+                    if ($usercheck->role=='agent'){
+                      $agent=agentsdetailsModel::where('uid',$usercheck->id)->first();
+                    $creditleft=$agent->noallocated - $agent->noused;
+                    }
+                    
+                @endphp
 <nav
   class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
   id="layout-navbar">
@@ -20,24 +30,21 @@
       </div>
     </div>
     <!-- /Search -->
-                @php
-                    Auth::check();
-                    $usercheck = Auth::user();
-                @endphp
+
 
     <ul class="navbar-nav flex-row align-items-center ms-md-auto">
       @if ($usercheck->role=='agent')
             <li class="nav-item lh-1 me-4">
         <a
           class="github-button"
-          href="#"
+          href="#" 
           data-icon="octicon-star"
-          data-size="large"
-          data-show-count="true"
           aria-label="Star"
-          >Credits</a
+          >
+          <div >{{$creditleft}} Credits</div></a
         >
       </li>
+      <li class="nav-item lh-1 me-4">{{Auth::user()->name}} |<b> {{strtoupper(Auth::user()->role)}} </b></li>
         
       @endif
 
@@ -46,6 +53,7 @@
         <!-- Check if the user is authenticated -->
         @if (Auth::check())
           <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+            
             <div class="avatar avatar-online">
               <img src="{{ Auth::user()->profile_photo_url ?? asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
             </div>

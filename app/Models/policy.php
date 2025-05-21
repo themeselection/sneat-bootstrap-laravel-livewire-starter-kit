@@ -30,7 +30,12 @@ class policy extends Model
         'create_uid',
         'update_uid',
         'producttype',
-        'usekey'
+        'usekey','vehicleuse','insurancetype'
     ];
+
+    public function getrisk()
+    {
+        return policyrisk::where('policyid',$this->id)->first();
+    }
 
 }

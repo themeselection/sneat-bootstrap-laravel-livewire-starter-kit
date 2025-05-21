@@ -31,7 +31,7 @@ class PolicyController extends Controller
         switch ($user->role) {
             case 'agent':
                 # RETRIEVE ALL POLICIES CREATED BY THIS AGENT
-                 $policies=policy::where('agent_id',$user->id)->get();
+                 $policies=policy::where('agent_id',$user->id)->orderBy('updated_at', 'desc')->get();
                 break;
             case 'admin':
                 # Retreieve all policies
@@ -68,6 +68,8 @@ class PolicyController extends Controller
                 $producttype='Private Motor Third Party';
                 $contribution=15000;
                 $usekey='car';
+                 $insurancetype='Private';
+                $vehicleuse="private";
                 break;
 
             case ($request->has('btncommercialmotor')):
@@ -75,12 +77,16 @@ class PolicyController extends Controller
                 $producttype='Commercial Motor Third Party';
                 $contribution=20000;
                 $usekey='bus';
+                $insurancetype='Commercial';
+                $vehicleuse="commercial";
                 break;
             case ($request->has('btnmotorcycle')):
                 # began the purchase of a Motorcycle policy
                 $producttype='Motorcycle Third Party';
                 $contribution=5000;
                 $usekey='mcycle';
+                 $insurancetype='Commercial';
+                $vehicleuse="commercial";
                 break;
             default:
                 # To Do  create a default 
@@ -89,7 +95,7 @@ class PolicyController extends Controller
         }
         $vmakes=vehicleMake::all();
 
-        return view('policy.newpolicy',compact('vmakes','producttype','contribution','usekey'));
+        return view('policy.newpolicy',compact('vmakes','producttype','contribution','usekey','insurancetype','vehicleuse'));
     }
 
     /**
@@ -121,6 +127,7 @@ class PolicyController extends Controller
          *  
          * 
         */
+
         Auth::check();
         $user = Auth::user();
 
@@ -160,7 +167,6 @@ class PolicyController extends Controller
                 # Map policy to existing user...
             }
             #Create Motor Policy 
-
             $start_date=date_create();
             $end_date=date_add(date_create(),date_interval_create_from_date_string("1 year"));
 
@@ -178,6 +184,9 @@ class PolicyController extends Controller
             ##TO DO Create Method to Calc Agents Commission and Contribution
             $policy->contribution=$request->contribution;
             $policy->commission=0;
+            $policy->insurancetype=$request->insurancetype;
+            $policy->vehicleuse=$request->vehicleuse;
+            
             
             $policy->save();
 
@@ -276,17 +285,27 @@ class PolicyController extends Controller
                    "RegistrationNo"=>$policyrisk->regno,
                    "VehicleType"=> $policy->usekey, 
                    "VehicleModel"=>$policyrisk->vehiclemodel,
-                   "insuranceType"=>"Commercial" ,
-                   "UseOFVehicle"=>"private"
+                   "insuranceType"=>$policy->insurancetype,
+                   "UseOFVehicle"=>$policy->vehicleuse
                 ];
 
                 $policydatajSon=json_encode($policydata);
               
-                
+                #To Get individual AUTH TOKEN
+                #1.  Check if the Agent has an Access Token From Elite
+                #2.  IF no AUTH TOKEN USE default users TOKEN
+                $token=$agent->auth_token;
+               
+                if (empty($token)) {
+                    $accesstoken=config('variables.API_ELITE_TOKEN');
+                } else {
+                   $accesstoken=$token;
+                }
                 
 
-                $response = Http::withHeader('Auth-Token',env('API_ELITE_TOKEN'))->withBody($policydatajSon)
-                ->post('https://demo.bitlect.net/api/v1/policy');
+               echo  $accesstoken;
+                $response = Http::withHeader('Auth-Token',$accesstoken)->withBody($policydatajSon)
+                ->post(config('variables.API_ELITE_URL'));
 
                 break;
             
@@ -302,34 +321,31 @@ class PolicyController extends Controller
 
             if ($data['data']['status'] == 'success') {
                 # code...
-                echo "SUCCESS MESSAGE: IMPORT SUCCESS";
+
                 $policy->elite_msg=$data['data']['status'] .$data['data']['message'] ;
                 $policy->policyno=$data['data']['policy_number'];
                 $policy->status='approved';
                 $policy->save();
-               
-
-
                 #To do Get Agent Credit Balance and change to reflect success;
                 if ($request->has('agencycredit')){
                     $agent->noused=$agent->noused + 1;
                     $agent->save();
                 }
-
-
-
-
    
             } else {
                 # code...
-                echo "ERROR MESSAGE: IMPORT FAILED";
+   
 
                 $policy->elite_msg=$response->body();
                 $policy->elite_msg=$data['data']['status'] .$data['data']['message'] ;
                 $policy->policyno=$data['data']['policy_number'];
                 $policy->status='failed';
                 $policy->save();
-                //TO DO create view to return user back to the policy with error message!!
+                
+                $errors=$policy->elite_msg;
+                $id=$policy->id;
+
+                return redirect()->route('view_policy', compact('errors', 'id'));
 
 
 

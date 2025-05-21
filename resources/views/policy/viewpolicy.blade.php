@@ -199,7 +199,7 @@
 
         </div>
     </div>
-    @if ($policy->status=='draft')
+    @if ($policy->status=='draft' or $policy->status=='failed')
         
      <div class="card col-9 mb-3">
         <div class="card-header"><h4>DECLARATION</h4></div>
