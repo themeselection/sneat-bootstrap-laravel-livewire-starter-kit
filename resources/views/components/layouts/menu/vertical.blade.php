@@ -31,11 +31,12 @@
         <i class="menu-icon fa fa-user"></i>{{ __('User Mgmt') }}
       </a>
     </li>
+    @endif
       
    
 
   
-@if ($user->role=='admin' or $user->role=='superadmin')
+      @if ($user->role=='admin' or $user->role=='superadmin')
         <!-- Agent Management -->
     <li class="menu-item {{ request()->is('list_agents') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('list_agents') }}" wire:navigate>
