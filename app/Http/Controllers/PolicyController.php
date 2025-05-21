@@ -176,8 +176,8 @@ class PolicyController extends Controller
             $policy->insured_name=$fullname;
             $policy->agent_id=$user->id;
             $policy->status='draft';
-            $policy->start_date= date_format($start_date,'d/m/Y'); 
-            $policy->end_date= date_format($end_date,'d/m/Y');
+            $policy->start_date= date_format($start_date,'Y/m/d'); 
+            $policy->end_date= date_format($end_date,'Y/m/d');
             $policy->create_uid=$user->id;
             $policy->update_uid=$user->id;
             $policy->usekey=$request->vehicletype;
