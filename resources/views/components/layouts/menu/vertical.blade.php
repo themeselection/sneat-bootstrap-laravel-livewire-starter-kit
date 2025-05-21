@@ -1,3 +1,8 @@
+                @php
+                
+                    Auth::check();
+                    $usercheck = Auth::user();                    
+                @endphp
 <!-- Menu -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
@@ -19,19 +24,25 @@
         <i class="menu-icon fa fa-pencil"></i>{{ __('Policy Mgmt') }}</a>
     </li>
 
-    <!-- User Management -->
+    @if ($user->role=='admin' or $user->role=='superadmin')
+      <!-- User Management -->
     <li class="menu-item {{ request()->is('list_users') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('list_users') }}" wire:navigate>
         <i class="menu-icon fa fa-user"></i>{{ __('User Mgmt') }}
       </a>
     </li>
+      
+   
 
+  
+@if ($user->role=='admin' or $user->role=='superadmin')
         <!-- Agent Management -->
     <li class="menu-item {{ request()->is('list_agents') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('list_agents') }}" wire:navigate>
         <i class="menu-icon fa fa-address-card"></i>{{ __('Agent Mgmt') }}
       </a>
     </li>
+     @endif
 
     <!-- Settings -->
     <li class="menu-item {{ request()->is('settings/*') ? 'active open' : '' }}">
