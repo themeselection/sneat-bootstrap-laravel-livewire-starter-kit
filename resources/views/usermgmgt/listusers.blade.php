@@ -21,9 +21,10 @@
                 <thead><th>S/N</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Role</th><th></thead>
                 <tbody>
                     @forelse ($users as $user)
-                    <form action="{{route('update_user')}}" method="post">
-                        @csrf
+                    
                     <tr>
+                        <form action="{{route('update_user')}}" method="post">
+                        @csrf
                         <td>#</td>
                         <td>{{$user->firstname}}</td>
                         <td>{{$user->lastname}}</td>
@@ -37,10 +38,11 @@
                                 <option value='user'>Direct User</option>
                             </select>
                         </td>
-                        <td><input type="number" value="{{$user->id}}" name="uid" hidden>
+                        <td><input type="number" value="{{$user->id}}" name="uid" hidden id="uid"/>
                             <button type="submit" class="btn btn-primary">GO</button></td>
+                            </form>
                     </tr>
-                    </form>
+                    
                     @empty
                     <tr>
                         <td>No Users Registered on System!!</td>

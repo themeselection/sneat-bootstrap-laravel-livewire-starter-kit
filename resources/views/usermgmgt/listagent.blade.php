@@ -28,7 +28,7 @@
                         <td>#</td>
                          <td>{{$agent->name}}</td>
                           <td>{{$agent->status}}</td>
-                           <td><input type="text" name=uid hidden value="{{$agent->id}}">
+                           <td><input type="text" name=uid hidden value="{{$agent->id}}" id="uid">
                             <button type="submit" class="btn btn-primary">View</button></td>
                             </form>
                     </tr>
