@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vehicle_makes', function (Blueprint $table) {
             $table->id();
             $table->integer('niipvmid')->nullable();
-            $table->integer('vmake')->nullable();
+            $table->string('vmake')->nullable();
             $table->timestamps();
         });
     }
