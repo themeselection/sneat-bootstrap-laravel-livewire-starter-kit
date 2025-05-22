@@ -21,7 +21,7 @@
                     <label class='form-label' for="agentname">Name</label>
                     @if (!empty($user->name))
                         <input type="text" class="form-control form-control-lg" name="agentname" disabled value="{{$user->name}}">
-                        <input type="text" class="form-control form-control-lg" name="agentname" hidden value="{{$user->id}}">
+                        <input type="text" class="form-control form-control-lg" name="userid" hidden value="{{$user->id}}">
                     @else
                         <input type="text" class="form-control form-control-lg" name="agentname" disabled value="N/A. Please update User Record">
                     @endif

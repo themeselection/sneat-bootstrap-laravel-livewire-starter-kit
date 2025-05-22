@@ -48,7 +48,7 @@ class AgentsdetailsModelController extends Controller
                     $agent=agentsdetailsModel::where('uid',$request->agentid)->first();
                     if (!$agent){
                         $agent= new agentsdetailsModel();
-                        $agent->uid=$request->agentid;
+                        $agent->uid=$request->userid;
                     }
 
         $agent->noallocated=$request->noallocated;
