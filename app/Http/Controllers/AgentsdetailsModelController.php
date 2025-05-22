@@ -45,7 +45,7 @@ class AgentsdetailsModelController extends Controller
         //
         try {
             //code...
-                    $agent=agentsdetailsModel::where('uid',$request->agentid)->first();
+                    $agent=agentsdetailsModel::where('uid',$request->userid)->first();
                     if (!$agent){
                         $agent= new agentsdetailsModel();
                         $agent->uid=$request->userid;
