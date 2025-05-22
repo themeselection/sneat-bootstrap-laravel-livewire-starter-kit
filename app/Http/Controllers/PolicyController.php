@@ -68,8 +68,8 @@ class PolicyController extends Controller
                 $producttype='Private Motor Third Party';
                 $contribution=15000;
                 $usekey='car';
-                 $insurancetype='Private';
-                $vehicleuse="private";
+                 $insurancetype='Commercial';
+                $vehicleuse="mcycle";
                 break;
 
             case ($request->has('btncommercialmotor')):
@@ -78,7 +78,7 @@ class PolicyController extends Controller
                 $contribution=20000;
                 $usekey='bus';
                 $insurancetype='Commercial';
-                $vehicleuse="commercial";
+                $vehicleuse="mcycle";
                 break;
             case ($request->has('btnmotorcycle')):
                 # began the purchase of a Motorcycle policy
@@ -86,7 +86,7 @@ class PolicyController extends Controller
                 $contribution=5000;
                 $usekey='mcycle';
                  $insurancetype='Commercial';
-                $vehicleuse="commercial";
+                $vehicleuse="mcycle";
                 break;
             default:
                 # To Do  create a default 

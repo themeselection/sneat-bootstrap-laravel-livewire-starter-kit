@@ -8,6 +8,6 @@ class agentsdetailsModel extends Model
 {
     //
     protected $fillable=['uid', 'allowcredit','noallocated', 'noused', 'status','access_token' ];
-
+    
 
 }

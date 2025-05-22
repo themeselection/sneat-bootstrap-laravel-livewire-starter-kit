@@ -53,6 +53,7 @@ class AgentsdetailsModelController extends Controller
         $agent->noallocated=$request->noallocated;
         $agent->status=$request->status;
         $agent->auth_token=$request->authtoken;
+        $agent->uid=$request->agentid;
 
         if ($request->has('agentcreditchk')){
             
