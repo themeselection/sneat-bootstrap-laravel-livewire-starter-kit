@@ -6,7 +6,7 @@ use App\Models\vehicleMake;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\vehicleMakeImport;
-
+use App\Models\vehicleModel;
 
 class VehicleMakeController extends Controller
 {
@@ -32,6 +32,12 @@ class VehicleMakeController extends Controller
 
         return view('codes.vehiclemakes', compact('vmakes'));
     }
+
+    public function getModels($make)
+{
+
+    return response()->json(vehicleModel::where('niipvmid', $make)->get());
+}
 
     /**
      * Show the form for creating a new resource.

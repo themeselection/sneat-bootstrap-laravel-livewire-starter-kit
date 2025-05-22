@@ -16,34 +16,33 @@
 <div>
 <div class="card">
     <div class="card-header">
-        VEHICLE MAKE MAPPING
+        VEHICLE MODEL MAPPING
     </div>
     <div class="card-body">
-        <form action="{{route('importvmodel')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('importvmake')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="col-auto mb-3">
-            <input type="file" name="vmodelimport"  required class="form-control" id='vmodelimport'>
+            <input type="file" name="vmakeimport"  required class="form-control" id='vmakeimport'>
         </div>
         <button type="submit" class="btn btn-primary">Import</button>
         </form>
     </div>
     <div class="card-body">
-        <table class="table table-striped" id='vehiclemakes'>
-            <thead>
-                <thead>
-                <th>S/no</th><th>NIIP ID</th><th>Vehicle Make</th><th>Actions</th>
+        <table class="table table-striped" id='vehiclemodels'>
+            <th>S/no</th><th>NIIP ID</th><th>Vehicle Make</th><th>Model Name</th><th>Actions</th>
             </thead>
-            @forelse ($vmakes as $vmake)
+            @forelse ($vmodels as $vmodel)
                 <tr>
-                <td></td>
-                <td>{{$vmake->niipvmid}}</td>
-                <td>{{$vmake->vmake}}</td>
+                <td>{{$vmodel->vmodelid}}</td>
+                <td>{{$vmodel->niipvmid}}</td>
+                <td>{{$vmodel->vmodelname}}</td>
+                <td>{{$vmodel->vmodelfullname}}</td>
                 <td></td>
             </tr>
-                
+            
             @empty
                 <tr>
-                    <td>No Vehicle Makes Recorded in System</td>
+                    <td>No Vehicle Models Recorded in System</td>
                 </tr>
             @endforelse
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\vehicleModel;
 use Illuminate\Http\Request;
+use App\Imports\vehicleModelImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VehicleModelController extends Controller
 {
@@ -13,8 +15,22 @@ class VehicleModelController extends Controller
     public function index()
     {
         //
+        $vmodels=vehicleModel::all();
+
+        return view('codes.vehiclemodels', compact('vmodels'));
     }
 
+        public function importvmodel(Request $request)
+    {
+
+        $request->validate([
+            'vmodelimport' => 'required|max:2048|mimes:xlsx,xls,csv'
+        ]);
+
+        Excel::import(new vehicleModelImport, $request->file('vmodelimport'));
+
+        return back()->with('success', 'Vehicle Models imported successfully.');
+    }
     /**
      * Show the form for creating a new resource.
      */

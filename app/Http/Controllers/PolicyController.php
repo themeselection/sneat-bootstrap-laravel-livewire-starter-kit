@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Models\vehicleMake;
 use Illuminate\Support\Facades\Http;
 use App\Exceptions\InvalidUserActionException;
-
+use App\Models\vehicleModel;
 
 class PolicyController extends Controller
 {
@@ -169,7 +169,11 @@ class PolicyController extends Controller
             #Create Motor Policy 
             $start_date=date_create();
             $end_date=date_add(date_create(),date_interval_create_from_date_string("1 year"));
-            
+
+            #GET Vehicle Make and Model To BE USED with NIIP integration
+            $vmake=vehicleMake::where('niipvmid',$request->vehiclemake )->first();
+            $vmodel=vehicleModel::where('id',$request->vmodel)->first();
+         
             #check if policy exists
             if ($request->has('policyid')){
                 $policy=policy::where('id',$request->policyid)->first();
@@ -208,8 +212,8 @@ class PolicyController extends Controller
             $policyrisk->policyid=$policy->id;
             $policyrisk->engineno=$request->engineno;
             $policyrisk->chassisno=$request->chassisno;
-            $policyrisk->vehiclemake=$request->vehiclemake;
-            $policyrisk->vehiclemodel=$request->vehiclemodel;
+            $policyrisk->vehiclemake=$vmake->vmake;
+            $policyrisk->vehiclemodel=$vmodel->vmodelname;
             $policyrisk->yearofmake=$request->yearofmake;
             $policyrisk->vehiclecolor=$request->vehiclecolor;
             

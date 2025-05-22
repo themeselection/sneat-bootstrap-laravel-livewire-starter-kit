@@ -1,3 +1,5 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <x-layouts.app>
     This is a a Test
         @if ($errors->any())
@@ -106,23 +108,21 @@
                 </div>
                 <div class="col-auto">
                     <label class='form-label' for="vehiclemake">Vehicle Make</label>
-                    <input class="form-control form-control-lg" list="vmake" id="vmakeDataList"  required name="vehiclemake" placeholder="Type to search...">
-                    <datalist id="vmake">
-                         @forelse ($vmakes as $vmake)
-                             <option value="{{$vmake->vmake}}">
-                         @empty
-        
-                     @endforelse
- 
-                    </datalist>
+                    <select name="vehiclemake" class="form-select form-control-lg" id="vehiclemake" onchange="test()">
+                         <option value="">Select Make</option>
+                            @foreach($vmakes as $vmake)
+                             <option value="{{ $vmake->niipvmid }}">{{ $vmake->vmake }}</option>
+                            @endforeach
+                    </select >
+
                 </div>
                 <div class="col-auto">
                     <label class='form-label' for="vehiclemake">Vehicle Model</label>
-                    <select class="form-select form-control-lg" required name="vehiclemodel" id="vehiclemodel">
-                        <option value="Camry">Camry</option>
-                        <option value="Corolla">Corolla</option>
-                    </select>
-                </div>
+                      <select id="vehiclemodel" class="form-select form-control-lg" name="vmodel">
+    <option value="">Select Model</option>
+</select>
+
+</div>
 
                 <div class="col-auto">
                     <label class='form-label' for="yearofmake">Year of Make</label>
@@ -166,5 +166,36 @@ I also consent to the processing of my personal data in accordance with the Comp
         </div>
      </div>
      </form>
+
+     <script>
+        $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+     </script>
+
+<script>
+function test(params) {
+    console.log('I got Here');
+    let e = document.getElementById('vehiclemake');
+    var value = e.value;
+    var text = e.options[e.selectedIndex].text;
+console.log(text);
+console.log(value);
+        $.ajax({
+            url: '/get-vehicle-models/' + value,
+            type: 'GET',
+            success: function(models) {
+                $('#vehiclemodel').html('');
+                models.forEach(function(model) {
+                    $('#vehiclemodel').append('<option value="' + model.id + '">' + model.vmodelname + '</option>');
+                });
+            }
+        });
+
+}
+
+</script>
+
+
 </x-layouts.app>
 

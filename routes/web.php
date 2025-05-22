@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleMakeController;
+use App\Http\Controllers\VehicleModelController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -47,13 +48,22 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('list_agents',[AgentsdetailsModelController::class, 'index'])->name('list_agents'); 
     Route::get('agent_profile',[AgentsdetailsModelController::class, 'agentprofile'])->name('agentprofile');  
-    Route::post('agent_update',[AgentsdetailsModelController::class, 'agentupdate'])->name('agentupdate');    
+    Route::post('agent_update',[AgentsdetailsModelController::class, 'agentupdate'])->name('agentupdate'); 
+       
 });
 
 
 Route::middleware('auth')->group(function () {
     Route::get('list_vmake',[VehicleMakeController::class, 'index'])->name('list_vmake'); 
-    Route::post('import_vmakes',[VehicleMakeController::class, 'importvmake'])->name('importvmake');   
+    Route::post('import_vmakes',[VehicleMakeController::class, 'importvmake'])->name('importvmake');  
+    Route::get('/get-vehicle-models/{make}', [VehicleMakeController::class, 'getModels']);   
+
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('list_vmodel',[VehicleModelController::class, 'index'])->name('list_vmodel'); 
+    Route::post('import_vmodel',[VehicleModelController::class, 'importvmodel'])->name('importvmodel'); 
+    
 
 });
 
