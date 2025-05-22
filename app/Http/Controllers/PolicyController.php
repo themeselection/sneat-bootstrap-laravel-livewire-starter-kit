@@ -169,8 +169,19 @@ class PolicyController extends Controller
             #Create Motor Policy 
             $start_date=date_create();
             $end_date=date_add(date_create(),date_interval_create_from_date_string("1 year"));
+            
+            #check if policy exists
+            if ($request->has('policyid')){
+                $policy=policy::where('id',$request->policyid)->first();
 
-            $policy= new policy();
+            }
+            else{
+                $policy= new policy();
+
+            }
+            
+
+            
             $policy->insured_id=$insured->id;
             $policy->producttype=$request->producttype;
             $policy->insured_name=$fullname;
@@ -187,8 +198,7 @@ class PolicyController extends Controller
             $policy->insurancetype=$request->insurancetype;
             $policy->vehicleuse=$request->vehicleuse;
             
-            
-            $policy->save();
+             $policy->save();
 
             #Create New Policy Risk Object
             $policyrisk=new policyrisk();
@@ -326,11 +336,13 @@ class PolicyController extends Controller
                 $policy->policyno=$data['data']['policy_number'];
                 $policy->status='approved';
                 $policy->save();
-                #To do Get Agent Credit Balance and change to reflect success;
+                #Get Agent Credit Balance and change to reflect success;
                 if ($request->has('agencycredit')){
                     $agent->noused=$agent->noused + 1;
                     $agent->save();
                 }
+
+                #TO DO Upload policy to NIIP
    
             } else {
                 # code...

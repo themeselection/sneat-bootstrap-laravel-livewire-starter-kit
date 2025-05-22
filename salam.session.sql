@@ -1,1 +1,3 @@
-delete  from policyrisks
+update users
+set role='admin'
+where id=3

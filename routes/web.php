@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentsdetailsModelController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleMakeController;
@@ -11,10 +12,17 @@ Route::get('/', function () {
   return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-  ->middleware(['auth', 'verified'])
-  ->name('dashboard');
 
+/**
+ * Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])  ->name('dashboard');
+ * 
+ */
+
+
+Route::middleware('auth')->group(function () {
+  Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+  });
+  
 Route::middleware('auth')->group(function () {
     Route::get('list_policy',[PolicyController::class, 'index'])->name('list_policy'); 
     Route::get('buypolicy',[PolicyController::class, 'buypolicy'])->name('buy_policy');

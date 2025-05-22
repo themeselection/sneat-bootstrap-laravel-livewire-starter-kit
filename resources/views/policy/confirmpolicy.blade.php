@@ -34,7 +34,7 @@
                 <div class="col-auto">
                     <label for="" class="form-label">PRODUCT TYPE</label>
                     <input class="form-control form-control-lg" type="text" disabled value="COMMERCIAL">
-                    <input class="form-control form-control-lg" type="text" name='productid' hidden value="TO DO">
+                    <input class="form-control form-control-lg" type="text" name='policyid' hidden value="{{$policy->id}}">
                 </div>
                 <div class="col-auto">
                     <label for="datefrom" class="form-label">DATE FROM</label>
@@ -43,6 +43,7 @@
                 <div class="col-auto">
                     <label for="" class="form-label">DATE TO</label>
                     <input class="form-control form-control-lg" type="text" disabled value="{{$policy->end_date}}">
+                    
                 </div>
             </div>
         </div></div>

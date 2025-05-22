@@ -62,11 +62,13 @@
                 <div class="col-auto">
                     <label for="" class="form-label">PRODUCT</label>
                     <input class="form-control form-control-lg" type="text" disabled value="MOTOR THIRD PARTY">
+                    
                 </div>
                 <div class="col-auto">
                     <label for="" class="form-label">PRODUCT TYPE</label>
                     <input class="form-control form-control-lg" type="text" disabled value="{{$policy->producttype}}">
                     <input class="form-control form-control-lg" type="text" name='producttype' hidden value="{{$policy->producttype}}">
+                    <input class="form-control form-control-lg" type="text" name='policyid' hidden value="{{$policy->id}}">
                 </div>
                 <div class="col-auto">
                     <label for="" class="form-label">CONTRIBUTION ( &#8358;)</label>
