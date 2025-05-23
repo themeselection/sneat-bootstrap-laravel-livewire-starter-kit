@@ -93,7 +93,7 @@ class PolicyController extends Controller
                 return back()->with('Error', 'Product not Configured imported successfully.');
                 break;
         }
-        $vmakes=vehicleMake::all();
+        $vmakes=vehicleMake::orderBy('vmake')->get();
 
         return view('policy.newpolicy',compact('vmakes','producttype','contribution','usekey','insurancetype','vehicleuse'));
     }
@@ -104,7 +104,7 @@ class PolicyController extends Controller
     public function newpolicy()
     {
         //
-        $vmakes=vehicleMake::all();
+        $vmakes=vehicleMake::orderBy('vmakes')->get();
 
         return view('policy.newpolicy',compact('vmakes'));
     }
@@ -387,7 +387,7 @@ class PolicyController extends Controller
         $policy=policy::where('id',$request->id)->first();
         $insured=User::where('id',$policy->insured_id)->first();
         $policyrisk=policyrisk::where('policyid', $policy->id)->first();
-        $vmakes=vehicleMake::all();
+        $vmakes=vehicleMake::orderBy('vmake')->get();
 
         //dd($policy);
 

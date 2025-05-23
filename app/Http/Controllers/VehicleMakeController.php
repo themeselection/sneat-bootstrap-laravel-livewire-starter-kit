@@ -36,7 +36,7 @@ class VehicleMakeController extends Controller
     public function getModels($make)
 {
 
-    return response()->json(vehicleModel::where('niipvmid', $make)->get());
+    return response()->json(vehicleModel::where('niipvmid', $make)->orderBy('vmodelname')->get());
 }
 
     /**

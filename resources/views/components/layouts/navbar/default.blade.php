@@ -8,15 +8,11 @@
                     }
                     
                 @endphp
+            
 <nav
   class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
   id="layout-navbar">
-  <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
-    <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
-      <i class="icon-base bx bx-menu icon-md"></i>
-    </a>
-  </div>
-
+  
   <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
     <!-- Search -->
     <div class="navbar-nav align-items-center me-auto">
@@ -64,7 +60,7 @@
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="{{ Auth::user()->profile_photo_url ?? asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="{{ Auth::user()->profile_photo_url ?? asset('assets/img/avatars/2.png') }}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </div>
                   <div class="flex-grow-1">
@@ -76,6 +72,33 @@
             </li>
             <li>
               <div class="dropdown-divider my-1"></div>
+            
+            </li>
+            <li>
+              <a class="dropdown-item {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}" wire:navigate>
+        <i class="menu-icon fa fa-tachometer"></i>
+        {{ __('Dashboard') }}</a>
+            </li>
+            <li>
+              <a class="dropdown-item {{ request()->routeIs('lis') ? 'active' : '' }}" href="{{ route('list_policy') }}" wire:navigate>
+        <i class="menu-icon fa fa-pencil"></i>{{ __('Policy Mgmt') }}</a>
+            </li>
+            @if ($usercheck->role=='admin' or $user->usercheckrole=='superadmin')
+      <!-- User Management -->
+    <li>
+      <a class="dropdown-item {{ request()->is('list_users') ? 'active' : '' }}" href="{{ route('list_users') }}" wire:navigate>
+        <i class="menu-icon fa fa-user"></i>{{ __('User Mgmt') }}
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item {{ request()->is('list_agents') ? 'active' : '' }}" href="{{ route('list_agents') }}" wire:navigate>
+        <i class="menu-icon fa fa-address-card"></i>{{ __('Agent Mgmt') }}
+      </a>
+    </li>
+     @endif
+            <li>
+              <div class="dropdown-divider my-1"></div>
+            
             </li>
             <li>
               <a class="dropdown-item {{ request()->routeIs('settings.profile') ? 'active' : '' }}" href="{{ route('settings.profile') }}" wire:navigate>

@@ -13,38 +13,37 @@
       </ul>
   </div>
 @endif
-<div>
+<div class="col-md col-xl col-sm py-md-3 pl-md-5t  fs-6, fs-md-5, fs-lg-5, fs-xl-1">
 
-    <div class="card">
+    <div class="card row gy-2 gx-3 align-items-center mb-3 mt-3 " style="font-size: 1rem;">
         <div class="card-header">BUY A MOTOR POLICY</div>
         <div class="card-body">
-            <div class="flex">
+            <div class="flex ">
                 <form action="{{route('buy_policy')}}" method="get">
-                    <button class="btn btn-primary" name="btnprivatemotor">Private Motor Third Party</button>
-                    <button class="btn btn-primary" name="btncommercialmotor">Commercial Motor Third Party</button>
-                    <button class="btn btn-primary" name="btnmotorcycle">Motorcycle/Tricycle Third Party</button>
+                    <button class="btn btn-primary mb-3" name="btnprivatemotor"style="font-size:0.8rem">Private Motor Third Party</button>
+                    <button class="btn btn-primary mb-3" name="btncommercialmotor" style="font-size:0.8rem">Commercial Motor Third Party</button>
+                    <button class="btn btn-primary mb-3" name="btnmotorcycle" style="font-size:0.8rem">Motorcycle/Tricycle Third Party</button>
                     
                 </form>
             </div>
 
         </div>
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-striped" id='policylist'>
+
+        <div class="card row gy-2 gx-3 align-items-center mb-3">
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-sm" style="font-size:0.8rem" id='policylist'>
                     <thead>
-                        <th>S/No</th>
-                        <th>Policy No.</th>
-                        <th>Policy Type</th>
-                        <th>Risk (REG NO) </th>
-                        <th>Insured Name</th>
-                        <th>Contribution</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th class="col">Policy No.</th>
+                        <th class="col">Policy Type</th>
+                        <th class="col">Risk/REGNO </th>
+                        <th class="col">Insured Name</th>
+                        <th class="col">Contribution</th>
+                        <th class="col">Status</th>
+                        <th class="col">Action</th>
                     </thead>
                     <tbody>
                         @forelse ($policies as $policy ) 
                             <tr>
-                                <td>#</td>
                                 <td>@if (empty($policy->policyno))
                                     Incomplete Policy
                                 @else
@@ -64,12 +63,13 @@
                                 <td><form action="{{route('view_policy')}}" method="get">
                                     <input type="number" value="{{$policy->id}}" hidden name='id'>
 
-                                    <button class="btn btn-primary" type="submit">View Policy</button>
+                                    <button class="btn btn-primary"  style="font-size:0.75rem"  type="submit">View Policy</button>
 
                                 </form>
                                     
                                     @if ($policy->status=='approved' && !empty($policy->policyno))
-                                        <a target="_blank" class="btn btn-success" href="https://demo.bitlect.net/api/v1/policy/view-certificate?policy_no={{$policy->policyno}}">
+                                    <br>
+                                        <a target="_blank" class="btn btn-success"  style="font-size:0.75rem"  href="https://demo.bitlect.net/api/v1/policy/view-certificate?policy_no={{$policy->policyno}}">
                                         Certificate
                                         </a>
                                     @endif

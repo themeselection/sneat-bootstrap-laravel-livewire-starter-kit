@@ -19,7 +19,7 @@ class AgentsdetailsModelController extends Controller
         ->leftJoin('agentsdetails_models', 'users.id', '=','agentsdetails_models.uid')
         ->select(
             'users.id as id',
-            'name',
+            'name','email',
             'allowcredit','noallocated', 'noused', 'status','auth_token'
             
         )->where('role', 'agent')->get(); 

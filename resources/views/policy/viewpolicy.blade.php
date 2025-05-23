@@ -19,9 +19,10 @@
       </ul>
   </div>
 @endif
+<div class="col-12 col-md col-xl col-sm py-md-3 pl-md-5t  fs-6, fs-md-5, fs-lg-5, fs-xl-1">
 <form action="{{route('submit_mpolicy')}}" method="post">
     @csrf
-    <div class="card col-9 mb-3">
+    <div class="card  mb-3">
         <div class="card-header"><h4>POLICY DETAILS</h4>
         <h5 style="color:#040273 "><b>POLICY NO  :</b> 
             @if (!empty($policy->policyno))
@@ -45,6 +46,9 @@
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     View
   </a>
+  @if ($policy->status=='approved')
+  <a target="_blank" class="btn btn-success ml-3" href="https://demo.bitlect.net/api/v1/policy/view-certificate?policy_no={{$policy->policyno}}">Certificate</a>
+  @endif
         </h5>
   
         <div class="collapse" id="collapseExample">
@@ -77,12 +81,12 @@
                 </div>
             </div>
         </div></div>
-    <div class="card col-9 mb-3">
+    <div class="card  mb-3">
         <div class="card-header"><h4>PERSONAL DETAILS</h4></div>
         <div class="card-body">
             <div class="row gy-2 gx-3 align-items-center mb-3">
                  <div class="col-auto">
-                    <label class='form-label' for="fname">First Name</label>)
+                    <label class='form-label' for="fname">First Name</label>
                     <input class='form-control form-control-lg' type="text" name="fname" {{$statcheck}} required id="fname" value="{{$insured->firstname}}" placeholder="Enter First Name">
 
                 </div>
@@ -134,7 +138,7 @@
 
         </div>
     </div>
-    <div class="card col-9 mb-3">
+    <div class="card  mb-3">
         <div class="card-header"><h4>VEHICLE DETAILS</h4></div>
         <div class="card-body">
             <div class="row gy-2 gx-3 align-items-center mb-3">
@@ -159,29 +163,41 @@
                 </div>
                 <div class="col-auto">
                     <label class='form-label' for="vehiclemake">Vehicle Make</label>
-                    <input class="form-control form-control-lg" list="vmake" id="vmakeDataList"  
+                    @if ($statcheck=='disabled')
+                       <input class="form-control form-control-lg"  
                     {{$statcheck}} 
                     value="{{$policyrisk->vehiclemake}}"
-                    required name="vehiclemake" placeholder="Type to search...">
-                    <datalist id="vmake">
-                         @forelse ($vmakes as $vmake)
-                             <option value="{{$vmake->vmake}}">
-                         @empty
-        
-                     @endforelse
- 
-                    </datalist>
+                    required name="vehiclemake" placeholder="Type to search..."> 
+                    @else
+                        <select name="vehiclemake" class="form-select form-control-lg" id="vehiclemake" onchange="test()">
+                         <option value="">Select Make</option>
+                            @foreach($vmakes as $vmake)
+                             <option value="{{ $vmake->niipvmid }}" 
+                {{ $policyrisk->vehiclemake == $vmake->vmake ? 'selected' : '' }}>
+                {{ $vmake->vmake }}
+            </option>
+                            @endforeach
+                    </select >
+                     @endif
+
                 </div>
                 <div class="col-auto">
-                    <label class='form-label' for="vehiclemake">Vehicle Model</label>
-                    <select class="form-select form-control-lg" required name="vehiclemodel" id="vehiclemodel">
-                        <option value="Camry">Camry</option>
-                        <option value="Corolla">Corolla</option>
-                    </select>
+                    <label class='form-label' for="vehiclemodel">Vehicle Model</label>
+                    @if ($statcheck=='disabled')
+                       <input class="form-control form-control-lg"
+                    {{$statcheck}} value="{{$policyrisk->vehiclemodel}}"
+                    required name="vehiclemodel" placeholder="Type to search..."> 
+
+                    @else
+                    <select id="vehiclemodel" class="form-select form-control-lg" name="vmodel">
+    <option value="">Select Model</option>
+</select>
+
+                    @endif              
                 </div>
                 <div class="col-auto">
-                    <label class='form-label' for="yearofmake">Year of Make</label>
-                    <input type="number" class="form-control form-control-lg" 
+                    <label class='form-label'  for="yearofmake">Year of Make</label>
+                    <input type="number" {{$statcheck}} class="form-control form-control-lg" 
                     {{$statcheck}} 
                     value="{{$policyrisk->yearofmake}}"
                     id="yearofmake" name="yearofmake">
@@ -189,7 +205,7 @@
                 </div>
                 <div class="col-auto">
                     <label class='form-label' for="vehiclecolor">Vehicle Color</label>
-                    <input type="text" class="form-control form-control-lg" 
+                    <input type="text" {{$statcheck}} class="form-control form-control-lg" 
                     {{$statcheck}} 
                     value="{{$policyrisk->vehiclecolor}}"
                     name="vehiclecolor">
@@ -203,7 +219,7 @@
     </div>
     @if ($policy->status=='draft' or $policy->status=='failed')
         
-     <div class="card col-9 mb-3">
+     <div class="card  mb-3">
         <div class="card-header"><h4>DECLARATION</h4></div>
         <div class="card-body">
             <div class="row gy-2 gx-3 align-items-center mb-3">
@@ -227,5 +243,27 @@ I also consent to the processing of my personal data in accordance with the Comp
      </div>
          @endif
      </form>
+
+</div>
+<script>
+function test(params) {
+    console.log('I got Here');
+    let e = document.getElementById('vehiclemake');
+    var value = e.value;
+    var text = e.options[e.selectedIndex].text;
+        $.ajax({
+            url: '/get-vehicle-models/' + value,
+            type: 'GET',
+            success: function(models) {
+                $('#vehiclemodel').html('');
+                models.forEach(function(model) {
+                    $('#vehiclemodel').append('<option value="' + model.id + '">' + model.vmodelname + '</option>');
+                });
+            }
+        });
+
+}
+
+</script>
 </x-layouts.app>
 

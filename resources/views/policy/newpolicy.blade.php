@@ -11,9 +11,10 @@
       </ul>
   </div>
 @endif
+<div class="col-12 col-md col-xl col-sm py-md-3 pl-md-5t  fs-6, fs-md-5, fs-lg-5, fs-xl-1">
 <form action="{{route('submit_mpolicy')}}" method="post">
     @csrf
-    <div class="card col-9 mb-3">
+    <div class="card mb-3">
         <div class="card-header"><h4>PRODUCT DETAILS</h4></div>
         <div class="card-body">
             <div class="row gy-2 gx-3 align-items-center mb-3">
@@ -35,7 +36,7 @@
                 </div>
             </div>
         </div></div>
-    <div class="card col-9 mb-3">
+    <div class="card mb-3">
         <div class="card-header"><h4>PERSONAL DETAILS</h4></div>
         <div class="card-body">
             <div class="row gy-2 gx-3 align-items-center mb-3">
@@ -89,7 +90,7 @@
 
         </div>
     </div>
-    <div class="card col-9 mb-3">
+    <div class="card mb-3">
         <div class="card-header"><h4>VEHICLE DETAILS</h4></div>
         <div class="card-body">
             <div class="row gy-2 gx-3 align-items-center mb-3">
@@ -143,7 +144,7 @@
 
         </div>
     </div>
-     <div class="card col-9 mb-3">
+     <div class="card  mb-3">
         <div class="card-header"><h4>DECLARATION</h4></div>
         <div class="card-body">
             <div class="row gy-2 gx-3 align-items-center mb-3">
@@ -166,12 +167,7 @@ I also consent to the processing of my personal data in accordance with the Comp
         </div>
      </div>
      </form>
-
-     <script>
-        $(document).ready(function() {
-    $('.js-example-basic-single').select2();
-});
-     </script>
+</div>
 
 <script>
 function test(params) {
@@ -179,8 +175,6 @@ function test(params) {
     let e = document.getElementById('vehiclemake');
     var value = e.value;
     var text = e.options[e.selectedIndex].text;
-console.log(text);
-console.log(value);
         $.ajax({
             url: '/get-vehicle-models/' + value,
             type: 'GET',
