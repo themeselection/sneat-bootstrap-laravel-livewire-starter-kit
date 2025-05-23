@@ -47,6 +47,8 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::all()->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')
                     ->groupBy('producttype')->get();
+
+                    
                             break;
                     case 'superadmin':
                                 # code...
