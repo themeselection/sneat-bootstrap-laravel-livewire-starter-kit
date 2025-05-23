@@ -83,7 +83,7 @@
               <a class="dropdown-item {{ request()->routeIs('lis') ? 'active' : '' }}" href="{{ route('list_policy') }}" wire:navigate>
         <i class="menu-icon fa fa-pencil"></i>{{ __('Policy Mgmt') }}</a>
             </li>
-            @if ($usercheck->role=='admin' or $user->usercheckrole=='superadmin')
+            @if ($usercheck->role=='admin' or $usercheck->role=='superadmin')
       <!-- User Management -->
     <li>
       <a class="dropdown-item {{ request()->is('list_users') ? 'active' : '' }}" href="{{ route('list_users') }}" wire:navigate>
