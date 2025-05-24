@@ -88,7 +88,7 @@
           </div>
         </div>
     </div>
-     <div class="col-lg-4">
+     <div class="col-auto">
           <div class="card">            
             <div class="card-body">
               <div class="table-responsive">
