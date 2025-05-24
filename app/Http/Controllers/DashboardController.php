@@ -33,6 +33,7 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::where('agent_id', $usercheck->id)->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')->where('agent_id', $usercheck->id)
                     ->groupBy('producttype')->get();
+                    
 
                             break;
                     case 'admin':
@@ -47,8 +48,7 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::all()->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')
                     ->groupBy('producttype')->get();
-
-                    
+                                       
                             break;
                     case 'superadmin':
                                 # code...
@@ -62,6 +62,14 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::all()->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')
                     ->groupBy('producttype')->get();
+                     $prodbyagents=DB::table('policies')
+        ->leftJoin('users', 'policies.insured_id', '=','users.id')
+        ->select('policies.status as status',
+            'users.id as agentid','producttype',
+            'noallocated', 'noused',          
+        )->groupBy('policies.status as status',
+            'agentid','producttype',
+            'noallocated', 'noused')->get(); 
                             break;
                     case 'user':
                                 # code...
@@ -74,17 +82,57 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::where('insured_id', $usercheck->id)->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')->where('insured_id', $usercheck->id)
                     ->groupBy('producttype')->get();
+
+
+
+            
                             break;
                         default:
                             # code...
                             break;
                     }
  
+                             
                     
+                    #Build a matrix to handle display
+
+                    $allagents=policy::select('agent_id' ,'producttype', DB::raw('count(*) as total'))->where('status', 'approved')
+                    ->groupBy('agent_id','producttype')->orderBy('agent_id')->get();
 
                     
 
-        return view('dashboardnew', compact('creditleft','totalpolcount','totalpoldraft','totalpolfailed','totalpolapproved','policygroup', 'usercheck'));
+                    $counter=0;
+                    $answers=[0];
+                    foreach ($allagents as $agent) {
+                        # code...
+                        #Temp solution to get agent name
+                        $agentname = DB::table('users')->where('id', $agent->agent_id)->value('name');
+                        if ($agentname) {
+                            $agent->agent_name = $agentname;
+                        } else {
+                            $agent->agent_name = 'Unknown Agent';
+                        }
+                        #End of temp solution
+                        #Build the report
+                        $report=['agent_id'=>$agent->agent_id,'agent_name'=>$agent->agent_name,'total_sale'=>$agent->total,
+                        'producttype'=>$agent->producttype                      
+
+                    ];
+                   
+                                            # code...
+                        $answers[$counter]=$report;
+                         $counter=$counter+1;    
+                    
+                    }
+                    
+                    #End of report build
+
+
+            
+                    
+
+        return view('dashboardnew', compact('creditleft','totalpolcount',
+        'totalpoldraft','totalpolfailed','totalpolapproved','policygroup', 'usercheck','answers'));
     }
 
     /**

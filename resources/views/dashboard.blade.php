@@ -1,7 +1,7 @@
 @section('title', __('Dashboard'))
 <x-layouts.app :title="__('Dashboard')">
     <div class="row g-4">
-      
+      This is HERE
       <div class="col-lg-4">
           <div class="card">            
             <div class="card-body">
@@ -40,8 +40,17 @@
           <div class="card">            
             <div class="card-body">
               <div style="font-size: 30px"><i class="fa fa-credit-card text-success" aria-hidden="true" ></i></div>
-              <h4 class="text-center text-success"></h4></div>
+              </div>
             <div class="card-footer text-success"><h4 class="text-center text-success">Approved Policies</h4></div>
+          </div>
+        </div>
+
+         <div class="col-lg-4">
+          <div class="card">            
+            <div class="card-body">
+              <div style="font-size: 30px"><i class="fa fa-credit-card text-success" aria-hidden="true" ></i></div>
+              <h4 class="text-center text-success"></h4></div>
+            <div class="card-footer text-success"><h4 class="text-center text-success">SALES BY AGENTS</h4></div>
           </div>
         </div>
 

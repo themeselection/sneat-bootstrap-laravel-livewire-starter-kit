@@ -38,4 +38,12 @@ class policy extends Model
         return policyrisk::where('policyid',$this->id)->first();
     }
 
+        public function getagentname()
+    {
+        $agent = User::where('id', $this->agent_id)->first();
+        return $agent ? $agent->name : 'Agent Not Found';
+
+    }
+
+
 }

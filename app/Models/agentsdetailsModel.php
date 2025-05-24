@@ -15,6 +15,12 @@ class agentsdetailsModel extends Model
     {
         return User::where('id',$this->uid)->first();
     }
+    public function getagg()
+    {
+       
+        return policy::where('agent_id',$this->uid)->get();
+    }
+
 
     
 
