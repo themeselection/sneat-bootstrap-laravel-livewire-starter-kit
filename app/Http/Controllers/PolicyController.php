@@ -354,7 +354,7 @@ class PolicyController extends Controller
 
                 $policy->elite_msg=$response->body();
                 $policy->elite_msg=$data['data']['status'] .$data['data']['message'] ;
-                $policy->policyno=$data['data']['policy_number'];
+                $policy->policyno='';
                 $policy->status='failed';
                 $policy->save();
                 
