@@ -110,7 +110,16 @@ new class extends Component {
                 </x-action-message>
             </div>
         </form>
+        @php
+             $user = Auth::user();
+        @endphp
+    
+
+        @if ($user->role=='admin' or $user->role=='superadmin')
 
         <livewire:settings.delete-user-form />
+            
+        @endif
+
     </x-settings.layout>
 </section>

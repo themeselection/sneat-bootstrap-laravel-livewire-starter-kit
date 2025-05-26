@@ -1,13 +1,12 @@
 <div class="authentication-wrapper authentication-cover">
   <div class="authentication-inner row m-0">
     <!-- /Left Text -->
-    <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5">
+    <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5" 
+    style="background-image:url({{asset('assets/img/illustrations/salamlogo.png')}}) ; background-repeat: no-repeat; background-size: cover;  ">
       <div class="w-100 d-flex justify-content-center">
         <div>
-          <!-- Logo -->
-          <a href="{{url('/')}}" class="app-brand auth-cover-brand gap-2"><x-app-logo /></a>
-          <!-- /Logo -->
-          <img src="{{asset('assets/img/illustrations/boy-with-rocket-light.png')}}" class="img-fluid" alt="Login image" width="700"/>
+
+          <!--<img src="{{asset('assets/img/illustrations/salamlogo.png111')}}" class="img-fluid" alt="Login image" width="100%" height="100%"/>-->
         </div>
       </div>
     </div>

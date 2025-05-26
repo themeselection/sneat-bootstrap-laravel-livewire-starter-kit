@@ -1,3 +1,8 @@
+                @php
+                
+                    Auth::check();
+                    $user = Auth::user();                    
+                @endphp
 <!-- Menu -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
@@ -9,8 +14,36 @@
   <ul class="menu-inner py-1">
     <!-- Dashboards -->
     <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
-      <a class="menu-link" href="{{ route('dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a>
+      <a class="menu-link" href="{{ route('dashboard') }}" wire:navigate>
+        <i class="menu-icon fa fa-tachometer"></i>
+        {{ __('Dashboard') }}</a>
     </li>
+        <!-- Policy Management -->
+    <li class="menu-item {{ request()->is('list_policy') ? 'active' : '' }}">
+      <a class="menu-link" href="{{ route('list_policy') }}" wire:navigate>
+        <i class="menu-icon fa fa-pencil"></i>{{ __('Policy Mgmt') }}</a>
+    </li>
+
+    @if ($user->role=='admin' or $user->role=='superadmin')
+      <!-- User Management -->
+    <li class="menu-item {{ request()->is('list_users') ? 'active' : '' }}">
+      <a class="menu-link" href="{{ route('list_users') }}" wire:navigate>
+        <i class="menu-icon fa fa-user"></i>{{ __('User Mgmt') }}
+      </a>
+    </li>
+    @endif
+      
+   
+
+  
+      @if ($user->role=='admin' or $user->role=='superadmin')
+        <!-- Agent Management -->
+    <li class="menu-item {{ request()->is('list_agents') ? 'active' : '' }}">
+      <a class="menu-link" href="{{ route('list_agents') }}" wire:navigate>
+        <i class="menu-icon fa fa-address-card"></i>{{ __('Agent Mgmt') }}
+      </a>
+    </li>
+     @endif
 
     <!-- Settings -->
     <li class="menu-item {{ request()->is('settings/*') ? 'active open' : '' }}">

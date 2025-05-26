@@ -46,8 +46,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 @endsection
 
 <div>
-    <h4 class="mb-1">{{ __('Adventure starts here') }} 🚀</h4>
-    <p class="mb-6">{{ __('Make your app management easy and fun!') }}</p>
+    <h4 class="mb-1">{{ __('Your Salam journey starts here') }} 🚀</h4>
+    <p class="mb-6">{{ __('Make your policy purchase easy and fun!') }}</p>
 
     <!-- Session Status -->
     @if (session('status'))

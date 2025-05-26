@@ -3,12 +3,12 @@
 return [
   "creatorName" => "ThemeSelection",
   "creatorUrl" => "https://themeselection.com",
-  "templateName" => "Sneat",
-  "templateSuffix" => "Laravel Bootstrap Starter Kit",
+  "templateName" => "MySalam Online",
+  "templateSuffix" => "Buy Policies Online",
   "templateVersion" => "1.0.0",
   "templateFree" => true,
   "templateDescription" => "Laravel 12 Starter Kit with Bootstrap 5 – Powerful template for developers, offering clean code and seamless integration with Bootstrap 5 components.",
-  "templateKeyword" => "laravel 12 starter kit, laravel bootstrap 5, bootstrap 5 starter kit, laravel bootstrap template, developer-friendly dashboard template",
+  "templateKeyword" => "laravel 12, bootstrap 5, bootstrap 5 starter kit",
   "licenseUrl" => "https://themeselection.com/license/",
   "livePreview" => "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo/",
   "productPage" => "https://themeselection.com/item/sneat-free-bootstrap-laravel-livewire-starter-kit/",
@@ -21,10 +21,12 @@ return [
   "repository" => "https://github.com/themeselection/sneat-bootstrap-laravel-livewire-starter-kit",
   "gitRepo" => "https://github.com/themeselection/sneat-bootstrap-laravel-livewire-starter-kit.git",
   "gitRepoAccess" => "https://tools.themeselection.com/github/github-access",
-  "githubFreeUrl" => "https://github.com/themeselection",
-  "facebookUrl" => "https://www.facebook.com/ThemeSelections/",
-  "twitterUrl" => "https://x.com/Theme_Selection",
-  "githubUrl" => "https://github.com/themeselection",
-  "dribbbleUrl" => "https://dribbble.com/themeselection",
-  "instagramUrl" => "https://www.instagram.com/themeselection/"
+  "githubFreeUrl" => "https://github.com/",
+  "facebookUrl" => "https://www.facebook.com/",
+  "twitterUrl" => "https://x.com/",
+  "githubUrl" => "https://github.com/",
+  "dribbbleUrl" => "https://dribbble.com/",
+  "instagramUrl" => "https://www.instagram.com/",
+  "API_ELITE_TOKEN" =>"token_f461f5247c406e501fcdc1d68b8a2c0efa2a64b0", //default agent token
+  "API_ELITE_URL"=>'https://demo.bitlect.net/api/v1/policy'
 ];
