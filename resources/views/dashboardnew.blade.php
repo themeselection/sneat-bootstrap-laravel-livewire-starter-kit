@@ -52,7 +52,7 @@
           <div class="card">            
             <div class="card-body">
               <div style="font-size: 30px"><i class="fa fa-credit-card" aria-hidden="true"></i></div>
-              <h4 class="text-center">{{$creditleft}}</h4></div>
+              <h4 class="text-center">{{$approachingrenewal}}</h4></div>
             <div class="card-footer"><h4 class="text-center">Upcoming Renewals</h4></div>
           </div>
         </div>

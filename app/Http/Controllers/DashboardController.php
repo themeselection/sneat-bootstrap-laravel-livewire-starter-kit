@@ -34,6 +34,16 @@ class DashboardController extends Controller
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')->where('agent_id', $usercheck->id)
                     ->groupBy('producttype')->get();
                     
+                    
+                    #get policies approaching renewal
+                    #first create a variable to hold the date 30 days from now
+                    $approachingrenewaldate = now()->addDays(30);
+                    #then get the policies that are approaching renewal
+                    $approachingrenewal = policy::where('agent_id', $usercheck->id)
+                        ->where('end_date', '<=', $approachingrenewaldate)
+                        ->where('status', 'approved')
+                        ->count();
+                    
 
                             break;
                     case 'admin':
@@ -48,6 +58,14 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::all()->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')
                     ->groupBy('producttype')->get();
+
+                                        #get policies approaching renewal
+                    #first create a variable to hold the date 30 days from now
+                    $approachingrenewaldate = now()->addDays(30);
+                    #then get the policies that are approaching renewal
+                    $approachingrenewal = policy::where('end_date', '<=', $approachingrenewaldate)
+                        ->where('status', 'approved')
+                        ->count();
                                        
                             break;
                     case 'superadmin':
@@ -62,15 +80,18 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::all()->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')
                     ->groupBy('producttype')->get();
-                     $prodbyagents=DB::table('policies')
-        ->leftJoin('users', 'policies.insured_id', '=','users.id')
-        ->select('policies.status as status',
-            'users.id as agentid','producttype',
-            'noallocated', 'noused',          
-        )->groupBy('policies.status as status',
-            'agentid','producttype',
-            'noallocated', 'noused')->get(); 
+
+
+                    #get policies approaching renewal
+                    #first create a variable to hold the date 30 days from now
+                    $approachingrenewaldate = now()->addDays(30);
+                    #then get the policies that are approaching renewal
+                    $approachingrenewal = policy::where('end_date', '<=', $approachingrenewaldate)
+                        ->where('status', 'approved')
+                        ->count();
+            
                             break;
+                    
                     case 'user':
                                 # code...
                     $creditleft=0;
@@ -82,6 +103,15 @@ class DashboardController extends Controller
                     $totalpolapproved=policy::where('insured_id', $usercheck->id)->where('status', 'approved')->count();
                     $policygroup=policy::select('producttype', DB::raw('count(*) as total'))->where('status', 'approved')->where('insured_id', $usercheck->id)
                     ->groupBy('producttype')->get();
+
+
+                    #get policies approaching renewal
+                    #first create a variable to hold the date 30 days from now
+                    $approachingrenewaldate = now()->addDays(30);
+                    #then get the policies that are approaching renewal
+                    $approachingrenewal = policy::where('end_date', '<=', $approachingrenewaldate)->where('insured_id', $usercheck->id)
+                        ->where('status', 'approved')
+                        ->count();
 
 
 
@@ -125,14 +155,24 @@ class DashboardController extends Controller
                     
                     }
                     
+
                     #End of report build
+                    /* Debug renewal date
+                    $renewals = policy::where('end_date', '<=', $approachingrenewaldate)
+                        ->where('status', 'approved')
+                        ->get(); 
+                        echo $approachingrenewaldate;
+                        dd($renewals);
+
+                    
+                    */
 
 
             
                     
 
         return view('dashboardnew', compact('creditleft','totalpolcount',
-        'totalpoldraft','totalpolfailed','totalpolapproved','policygroup', 'usercheck','answers'));
+        'totalpoldraft','totalpolfailed','totalpolapproved','policygroup', 'usercheck','answers','approachingrenewal'));
     }
 
     /**
