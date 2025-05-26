@@ -1,3 +1,7 @@
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
 @section('title', __('Dashboard'))
 <x-layouts.app :title="__('Dashboard')">
   <div>    
@@ -92,7 +96,7 @@
           <div class="card">            
             <div class="card-body">
               <div class="table-responsive">
-              <table class="table">
+              <table class="table table-striped table-sm" id="agentproduction">
                 <thead>
                   <th>Name</th>
                   <th>Class</th>
@@ -155,5 +159,7 @@
     </div>
 @endif
 
-
+<script>
+  new DataTable('#agentproduction ');
+</script>
 </x-layouts.app>

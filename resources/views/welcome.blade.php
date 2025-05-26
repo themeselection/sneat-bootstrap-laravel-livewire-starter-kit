@@ -19,7 +19,7 @@
             @endauth
           @endif
       </div>
-      <div class="col col-xl col-sm col-md">
+      <div class="col col-xl col-sm col-md col-8 mx-auto py-auto" style="height: 100vh ; padding-top:5%">
         <div class="card col-auto">
           <div class="row g-0" style="background-color: rgb(19, 19, 60)">
             <div class="col-sm d-flex align-items-center">
