@@ -336,7 +336,7 @@ class PolicyController extends Controller
             if ($data['data']['status'] == 'success') {
                 # code...
 
-                $policy->elite_msg=$data['data']['status'] .$data['data']['message'] ;
+                $policy->elite_msg=$data['data']['status'] .$data['data']['message'] .$accesstoken;
                 $policy->policyno=$data['data']['policy_number'];
                 $policy->status='approved';
                 $policy->save();
